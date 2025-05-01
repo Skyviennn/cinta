@@ -1,1 +1,113 @@
-# cinta
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Do You Love Me?</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #ffe6ea;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Mencegah scrollbar muncul */
+    }
+    #questionContainer {
+      margin-top: 100px;
+      position: relative;
+      height: 400px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: #ff7f9f;
+      color: white;
+      font-size: 18px;
+      position: absolute;
+      cursor: pointer;
+    }
+    #yesBtn {
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      position: relative;
+    }
+    .flying-heart {
+      position: absolute;
+      font-size: 24px; /* Ukuran hati */
+      animation: fly 2s forwards; /* Durasi animasi terbang */
+    }
+    @keyframes fly {
+      0% {
+        transform: translateY(100vh); /* Mulai dari bawah layar */
+      }
+      50% {
+        transform: translateY(-50vh); /* Terbang ke atas */
+      }
+      100% {
+        transform: translateY(100vh); /* Jatuh kembali ke bawah */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="questionContainer">
+    <h1>Do you love me?</h1>
+    <button id="noBtn" style="left: 40%; top: 200px;">No</button>
+    <button id="yesBtn">Yes</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const noBtn = document.getElementById("noBtn");
+      const yesBtn = document.getElementById("yesBtn");
+
+      // Fungsi untuk memindahkan tombol "No"
+      const moveNoButton = () => {
+        const newX = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+        const newY = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+        noBtn.style.left = `${newX}px`;
+        noBtn.style.top = `${newY}px`;
+      };
+
+      // Event listener untuk mouseover dan touchstart pada tombol "No"
+      noBtn.addEventListener("mouseover", moveNoButton);
+      noBtn.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // Mencegah aksi default pada perangkat sentuh
+        moveNoButton();
+      });
+
+      yesBtn.addEventListener("click", () => {
+        // Membuat animasi hati terbang
+        for (let i = 0; i < 1000; i++) { // Menghasilkan 1000 hati
+          createFlyingHeart();
+        }
+      });
+
+      function createFlyingHeart() {
+        const flyingHeart = document.createElement("div");
+        flyingHeart.classList.add("flying-heart");
+        flyingHeart.innerHTML = "❤️"; // Simbol hati
+
+        // Posisi acak di layar
+        const randomX = Math.random() * window.innerWidth;
+        flyingHeart.style.left = `${randomX}px`;
+
+        // Mengatur waktu animasi acak untuk variasi
+        const randomDelay = Math.random() * 2; // Delay antara 0 dan 2 detik
+        flyingHeart.style.animationDelay = `${randomDelay}s`;
+
+        document.body.appendChild(flyingHeart);
+
+        // Menghapus elemen setelah animasi selesai
+        flyingHeart.addEventListener('animationend', () => {
+          document.body.removeChild(flyingHeart);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
