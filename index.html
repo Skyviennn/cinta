@@ -3,37 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Valentine Code</title>
+  <title>Surat Valentine</title>
   <style>
     body {
-      background: #0d0d0d;
-      color: #fff;
-      font-family: 'Courier New', monospace;
+      background-color: #1a1a1a;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      overflow: hidden;
+      margin: 0;
+      font-family: 'Courier New', monospace;
     }
 
-    .text-container {
-      text-align: center;
-      font-size: 1.5rem;
-      max-width: 90%;
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background: #ff3366;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.6s ease;
+      box-shadow: 0 0 15px #ff6699;
+      border-radius: 10px;
+    }
+
+    .flap {
+      width: 0;
+      height: 0;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-bottom: 100px solid #ff6699;
+      position: absolute;
+      top: -100px;
+      left: 0;
+      transition: transform 0.6s ease;
+      transform-origin: bottom;
+      border-radius: 5px;
+    }
+
+    .letter {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      background: #fff;
+      top: 5%;
+      left: 5%;
+      padding: 10px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.5s ease;
+      overflow: hidden;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .line {
       opacity: 0;
       transform: translateY(20px);
-      animation: fadeInUp 0.8s ease forwards;
+      animation: fadeInUp 0.6s forwards;
+      text-align: center;
+      font-size: 1rem;
+      color: #333;
+      margin: 5px 0;
     }
 
-    .line:nth-child(1) { animation-delay: 0.5s; }
-    .line:nth-child(2) { animation-delay: 1.5s; }
-    .line:nth-child(3) { animation-delay: 2.5s; }
-    .line:nth-child(4) { animation-delay: 3.5s; }
-    .line:nth-child(5) { animation-delay: 4.5s; }
+    .open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .open .letter {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .open .letter .line:nth-child(1) { animation-delay: 0.5s; }
+    .open .letter .line:nth-child(2) { animation-delay: 1.2s; }
+    .open .letter .line:nth-child(3) { animation-delay: 2s; }
+    .open .letter .line:nth-child(4) { animation-delay: 2.8s; }
+    .open .letter .line:nth-child(5) { animation-delay: 3.6s; }
 
     @keyframes fadeInUp {
       to {
@@ -44,12 +92,23 @@
   </style>
 </head>
 <body>
-  <div class="text-container">
-    <div class="line">Selamat pagi cantik,Bagaimana hari ini? .</div>
+
+<div class="envelope" onclick="openLetter(this)">
+  <div class="flap"></div>
+  <div class="letter">
+    <div class="line">Selamat pagi cantik, bagaimana hari ini?</div>
     <div class="line">Aku cuma mau mengatakan sesuatu.</div>
-    <div class="line">Aku sangat mencintaimu,Aku ingin kamu mengetahui itu.</div>
+    <div class="line">Aku sangat mencintaimu, aku ingin kamu mengetahui itu.</div>
     <div class="line">I Love You Cantik.</div>
-    <div class="line">Selamat Ulang tahun!</div>
+    <div class="line">Selamat Ulang Tahun!</div>
   </div>
+</div>
+
+<script>
+  function openLetter(el) {
+    el.classList.toggle('open');
+  }
+</script>
+
 </body>
 </html>
