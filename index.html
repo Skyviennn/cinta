@@ -12,10 +12,27 @@
       padding: 0;
       overflow: hidden; /* Mencegah scrollbar muncul */
     }
+    #message {
+      margin-top: 50px;
+      font-size: 36px;
+      color: #d43f5b; /* Visible red color */
+      font-weight: bold;
+      user-select: none;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      min-height: 50px; /* to prevent layout jump */
+    }
     #questionContainer {
-      margin-top: 100px;
+      margin-top: 30px;
       position: relative;
-      height: 400px;
+      height: 150px;
+      display: flex;
+      justify-content: center; /* center horizontally */
+      align-items: center; /* center vertically inside the container */
+      gap: 40px; /* space between buttons */
+      flex-direction: row;
+      flex-wrap: nowrap;
+      user-select: none;
     }
     button {
       padding: 10px 20px;
@@ -24,38 +41,47 @@
       background-color: #ff7f9f;
       color: white;
       font-size: 18px;
-      position: absolute;
       cursor: pointer;
+      position: relative; /* so we can move "noBtn" by left/top if needed */
+      user-select: none;
+      min-width: 100px;
+      transition: background-color 0.3s ease;
     }
-    #yesBtn {
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      position: relative;
+    button:hover {
+      background-color: #ff5a75;
+    }
+    #noBtn {
+      /* Will be moved by JS */
     }
     .flying-heart {
       position: absolute;
-      font-size: 24px; /* Ukuran hati */
-      animation: fly 2s forwards; /* Durasi animasi terbang */
+      font-size: 24px; /* Heart size */
+      animation: fly 2s forwards; /* Animation duration */
+      user-select: none;
+      pointer-events: none;
+      z-index: 9999;
     }
     @keyframes fly {
       0% {
-        transform: translateY(100vh); /* Mulai dari bawah layar */
+        transform: translateY(100vh);
+        opacity: 1;
       }
       50% {
-        transform: translateY(-50vh); /* Terbang ke atas */
+        transform: translateY(-50vh);
+        opacity: 1;
       }
       100% {
-        transform: translateY(100vh); /* Jatuh kembali ke bawah */
+        transform: translateY(100vh);
+        opacity: 0;
       }
     }
   </style>
 </head>
 <body>
 
+  <div id="message">Will you marry me?</div>
   <div id="questionContainer">
-    <h1>Do you love me?</h1>
-    <button id="noBtn" style="left: 40%; top: 200px;">No</button>
+    <button id="noBtn">No</button>
     <button id="yesBtn">Yes</button>
   </div>
 
@@ -63,25 +89,38 @@
     document.addEventListener("DOMContentLoaded", () => {
       const noBtn = document.getElementById("noBtn");
       const yesBtn = document.getElementById("yesBtn");
+      const message = document.getElementById("message");
 
-      // Fungsi untuk memindahkan tombol "No"
+      // Function to move the "No" button randomly inside viewport, but keep it visible
       const moveNoButton = () => {
-        const newX = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
-        const newY = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+        const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+        const newX = Math.floor(Math.random() * maxX);
+        const newY = Math.floor(Math.random() * maxY);
+
+        noBtn.style.position = 'fixed';
         noBtn.style.left = `${newX}px`;
         noBtn.style.top = `${newY}px`;
       };
 
-      // Event listener untuk mouseover dan touchstart pada tombol "No"
+      // Move noBtn on mouseover and on click/tap
       noBtn.addEventListener("mouseover", moveNoButton);
       noBtn.addEventListener("touchstart", (e) => {
-        e.preventDefault(); // Mencegah aksi default pada perangkat sentuh
+        e.preventDefault();
+        moveNoButton();
+      });
+      noBtn.addEventListener("click", (e) => {
+        e.preventDefault();
         moveNoButton();
       });
 
       yesBtn.addEventListener("click", () => {
-        // Membuat animasi hati terbang
-        for (let i = 0; i < 1000; i++) { // Menghasilkan 1000 hati
+        // Change message text to "I love you ❤️"
+        message.textContent = "I love you ❤️";
+
+        // Create 1000 flying hearts
+        for (let i = 0; i < 1000; i++) {
           createFlyingHeart();
         }
       });
@@ -89,21 +128,18 @@
       function createFlyingHeart() {
         const flyingHeart = document.createElement("div");
         flyingHeart.classList.add("flying-heart");
-        flyingHeart.innerHTML = "❤️"; // Simbol hati
+        flyingHeart.innerHTML = "❤️";
 
-        // Posisi acak di layar
         const randomX = Math.random() * window.innerWidth;
         flyingHeart.style.left = `${randomX}px`;
 
-        // Mengatur waktu animasi acak untuk variasi
-        const randomDelay = Math.random() * 2; // Delay antara 0 dan 2 detik
+        const randomDelay = Math.random() * 2;
         flyingHeart.style.animationDelay = `${randomDelay}s`;
 
         document.body.appendChild(flyingHeart);
 
-        // Menghapus elemen setelah animasi selesai
         flyingHeart.addEventListener('animationend', () => {
-          document.body.removeChild(flyingHeart);
+          flyingHeart.remove();
         });
       }
     });
