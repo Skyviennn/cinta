@@ -2,148 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Do You Love Me?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine Code</title>
   <style>
     body {
-      font-family: sans-serif;
-      background-color: #ffe6ea;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      overflow: hidden; /* Mencegah scrollbar muncul */
-    }
-    #message {
-      margin-top: 50px;
-      font-size: 36px;
-      color: #d43f5b; /* Visible red color */
-      font-weight: bold;
-      user-select: none;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-      min-height: 50px; /* to prevent layout jump */
-    }
-    #questionContainer {
-      margin-top: 30px;
-      position: relative;
-      height: 150px;
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'Courier New', monospace;
       display: flex;
-      justify-content: center; /* center horizontally */
-      align-items: center; /* center vertically inside the container */
-      gap: 40px; /* space between buttons */
-      flex-direction: row;
-      flex-wrap: nowrap;
-      user-select: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      background-color: #ff7f9f;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      position: relative; /* so we can move "noBtn" by left/top if needed */
-      user-select: none;
-      min-width: 100px;
-      transition: background-color 0.3s ease;
+
+    .text-container {
+      text-align: center;
+      font-size: 1.5rem;
+      max-width: 90%;
     }
-    button:hover {
-      background-color: #ff5a75;
+
+    .line {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
     }
-    #noBtn {
-      /* Will be moved by JS */
-    }
-    .flying-heart {
-      position: absolute;
-      font-size: 24px; /* Heart size */
-      animation: fly 2s forwards; /* Animation duration */
-      user-select: none;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    @keyframes fly {
-      0% {
-        transform: translateY(100vh);
+
+    .line:nth-child(1) { animation-delay: 0.5s; }
+    .line:nth-child(2) { animation-delay: 1.5s; }
+    .line:nth-child(3) { animation-delay: 2.5s; }
+    .line:nth-child(4) { animation-delay: 3.5s; }
+    .line:nth-child(5) { animation-delay: 4.5s; }
+
+    @keyframes fadeInUp {
+      to {
         opacity: 1;
-      }
-      50% {
-        transform: translateY(-50vh);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
+        transform: translateY(0);
       }
     }
   </style>
 </head>
 <body>
-
-  <div id="message">Will you marry me?</div>
-  <div id="questionContainer">
-    <button id="noBtn">No</button>
-    <button id="yesBtn">Yes</button>
+  <div class="text-container">
+    <div class="line">Selamat pagi cantik,Bagaimana hari ini? .</div>
+    <div class="line">Aku cuma mau mengatakan sesuatu.</div>
+    <div class="line">Aku sangat mencintaimu,Aku ingin kamu mengetahui itu.</div>
+    <div class="line">I Love You Cantik.</div>
+    <div class="line">Selamat Ulang tahun!</div>
   </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const noBtn = document.getElementById("noBtn");
-      const yesBtn = document.getElementById("yesBtn");
-      const message = document.getElementById("message");
-
-      // Function to move the "No" button randomly inside viewport, but keep it visible
-      const moveNoButton = () => {
-        const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-        const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-
-        const newX = Math.floor(Math.random() * maxX);
-        const newY = Math.floor(Math.random() * maxY);
-
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = `${newX}px`;
-        noBtn.style.top = `${newY}px`;
-      };
-
-      // Move noBtn on mouseover and on click/tap
-      noBtn.addEventListener("mouseover", moveNoButton);
-      noBtn.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        moveNoButton();
-      });
-      noBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        moveNoButton();
-      });
-
-      yesBtn.addEventListener("click", () => {
-        // Change message text to "I love you ❤️"
-        message.textContent = "I LOVE YOU SAYANG ❤️";
-
-        // Create 1000 flying hearts
-        for (let i = 0; i < 200; i++) {
-          createFlyingHeart();
-        }
-      });
-
-      function createFlyingHeart() {
-        const flyingHeart = document.createElement("div");
-        flyingHeart.classList.add("flying-heart");
-        flyingHeart.innerHTML = "❤️";
-
-        const randomX = Math.random() * window.innerWidth;
-        flyingHeart.style.left = `${randomX}px`;
-
-        const randomDelay = Math.random() * 2;
-        flyingHeart.style.animationDelay = `${randomDelay}s`;
-
-        document.body.appendChild(flyingHeart);
-
-        flyingHeart.addEventListener('animationend', () => {
-          flyingHeart.remove();
-        });
-      }
-    });
-  </script>
-
 </body>
 </html>
