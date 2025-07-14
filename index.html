@@ -1,117 +1,246 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Surat untuk Cantik</title>
+  <meta charset="UTF-8">
+  <title>Skyvien Panel Creator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      background: #ffe6f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Courier New', monospace;
-    }
-
-    .envelope-container {
-      position: relative;
-      width: 300px;
-      height: 200px;
-      perspective: 1000px;
-      cursor: pointer;
-    }
-
-    .envelope {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #ffb6c1;
-      border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-    }
-
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #ff9db0;
-      transform-origin: top;
-      transition: transform 0.8s ease;
-      clip-path: polygon(0 0, 50% 50%, 100% 0);
-      z-index: 2;
-    }
-
-    .letter {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: white;
-      border-radius: 5px;
-      padding: 20px;
-      box-sizing: border-box;
-      transform: translateY(100%);
-      transition: transform 0.8s ease, opacity 0.5s ease;
-      opacity: 0;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .letter .line {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.6s forwards;
-      font-size: 1rem;
-      color: #333;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(120deg, #0f0f0f, #0a0a1f);
+      color: #fff;
       text-align: center;
-      margin: 5px 0;
+    }
+    h1 {
+      margin-top: 40px;
+      font-size: 40px;
+      background: linear-gradient(45deg, #00ffff, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite alternate;
     }
 
-    .opened .flap {
-      transform: rotateX(180deg);
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00f0ff; }
+      to { text-shadow: 0 0 20px #ff00ff; }
     }
 
-    .opened .letter {
-      transform: translateY(0);
-      opacity: 1;
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      background: #111;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #00ffff44;
+      margin-top: 30px;
     }
 
-    .opened .line:nth-child(1) { animation-delay: 0.5s; }
-    .opened .line:nth-child(2) { animation-delay: 1.2s; }
-    .opened .line:nth-child(3) { animation-delay: 2s; }
-    .opened .line:nth-child(4) { animation-delay: 2.8s; }
-    .opened .line:nth-child(5) { animation-delay: 3.6s; }
+    input, select {
+      width: 80%;
+      padding: 12px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #1e1e1e;
+      color: #fff;
+      box-shadow: 0 0 10px #00ffff22;
+    }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    button {
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(45deg, #00f0ff, #ff00ff);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #00f0ff88;
+    }
+
+    button:hover {
+      box-shadow: 0 0 20px #ff00ff, 0 0 30px #00f0ff;
+    }
+
+    #output {
+      margin-top: 30px;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffff55;
+      white-space: pre-wrap;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 12px;
+      color: #888;
     }
   </style>
 </head>
 <body>
 
-<div class="envelope-container" onclick="this.classList.toggle('opened')">
-  <div class="envelope">
-    <div class="flap"></div>
-    <div class="letter">
-      <div class="line">Selamat pagi cantik, bagaimana hari ini?</div>
-      <div class="line">Aku cuma mau mengatakan sesuatu.</div>
-      <div class="line">Aku sangat mencintaimu, aku ingin kamu mengetahui itu.</div>
-      <div class="line">I Love You Cantik.</div>
-      <div class="line">Selamat Ulang Tahun!</div>
-    </div>
+  <h1>🚀 SKYVIEN PANEL MAKER</h1>
+  <div class="container">
+    <input type="text" id="username" placeholder="Masukkan Username...">
+    <br>
+    <select id="paket">
+      <option value="1">1GB</option>
+      <option value="2">2GB</option>
+      <option value="3">3GB</option>
+      <option value="4">4GB</option>
+      <option value="5">5GB</option>
+      <option value="6">6GB</option>
+      <option value="7">7GB</option>
+      <option value="8">8GB</option>
+      <option value="9">9GB</option>
+      <option value="10">10GB</option>
+      <option value="unli">Unlimited</option>
+    </select>
+    <br>
+    <button onclick="createPanel()">Buat Sekarang</button>
+
+    <div id="output"></div>
   </div>
-</div>
+
+  <div class="footer">
+    &copy; 2025 Skyvien. All rights reserved.
+  </div>
+
+<script>
+  const global = {
+    egg: "15",
+    nestid: "5",
+    loc: "1",
+    domain: "https://-", // Ganti domain Pterodactyl kamu
+    apikey: "-", // API key admin
+    capikey: "-", // client key (optional)
+  };
+
+  const paketConfig = {
+    "1": { ram: 1000, disk: 1000, cpu: 40 },
+    "2": { ram: 2000, disk: 2000, cpu: 60 },
+    "3": { ram: 3000, disk: 3000, cpu: 80 },
+    "4": { ram: 4000, disk: 4000, cpu: 100 },
+    "5": { ram: 5000, disk: 5000, cpu: 120 },
+    "6": { ram: 6000, disk: 6000, cpu: 140 },
+    "7": { ram: 7000, disk: 7000, cpu: 160 },
+    "8": { ram: 8000, disk: 8000, cpu: 180 },
+    "9": { ram: 9000, disk: 9000, cpu: 200 },
+    "10": { ram: 10000, disk: 10000, cpu: 220 },
+    "unli": { ram: 0, disk: 0, cpu: 0 }
+  };
+
+  function randomHex(length = 4) {
+    const chars = "abcdef0123456789";
+    let hex = "";
+    for (let i = 0; i < length; i++) hex += chars[Math.floor(Math.random() * chars.length)];
+    return hex;
+  }
+
+  async function createPanel() {
+    const username = document.getElementById("username").value.trim().toLowerCase();
+    const paket = document.getElementById("paket").value;
+    const output = document.getElementById("output");
+
+    if (!username) return alert("❗ Username harus diisi.");
+
+    const { ram, disk, cpu } = paketConfig[paket];
+    const password = username + randomHex(4);
+    const email = `${username}@gmail.com`;
+    const name = username.charAt(0).toUpperCase() + username.slice(1) + " Server";
+
+    output.innerHTML = "⏳ Membuat akun panel...";
+
+    try {
+      const user = await fetch(`${global.domain}/api/application/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + global.apikey
+        },
+        body: JSON.stringify({
+          email,
+          username,
+          first_name: name,
+          last_name: "Server",
+          language: "en",
+          password
+        })
+      }).then(res => res.json());
+
+      if (user.errors) {
+        output.innerText = "❌ Gagal membuat akun:\n" + JSON.stringify(user.errors[0], null, 2);
+        return;
+      }
+
+      const usr_id = user.attributes.id;
+
+      const nest = await fetch(`${global.domain}/api/application/nests/${global.nestid}/eggs/${global.egg}`, {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + global.apikey,
+          "Content-Type": "application/json"
+        }
+      }).then(res => res.json());
+
+      const startup = nest.attributes.startup;
+
+      const server = await fetch(`${global.domain}/api/application/servers`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + global.apikey
+        },
+        body: JSON.stringify({
+          name,
+          user: usr_id,
+          egg: parseInt(global.egg),
+          docker_image: "ghcr.io/parkervcp/yolks:nodejs_18",
+          startup,
+          environment: {
+            INST: "npm",
+            USER_UPLOAD: "0",
+            AUTO_UPDATE: "0",
+            CMD_RUN: "npm start"
+          },
+          limits: { memory: ram, swap: 0, disk, io: 500, cpu },
+          feature_limits: { databases: 5, backups: 5, allocations: 5 },
+          deploy: {
+            locations: [parseInt(global.loc)],
+            dedicated_ip: false,
+            port_range: []
+          }
+        })
+      }).then(res => res.json());
+
+      if (server.errors) {
+        output.innerText = "❌ Gagal membuat server:\n" + JSON.stringify(server.errors[0], null, 2);
+        return;
+      }
+
+      const loginURL = global.domain + "/auth/login";
+
+      output.innerText = `✅ Panel berhasil dibuat!
+
+🔐 Username : ${username}
+🔑 Password : ${password}
+🌐 Login URL : ${loginURL}
+
+📦 Spesifikasi:
+• Ram: ${ram === 0 ? "Unlimited" : ram + " MB"}
+• Disk: ${disk === 0 ? "Unlimited" : disk + " MB"}
+• CPU : ${cpu === 0 ? "Unlimited" : cpu + "%"}`;
+    } catch (err) {
+      output.innerText = "❌ Error koneksi atau konfigurasi:\n" + err.message;
+    }
+  }
+</script>
 
 </body>
 </html>
